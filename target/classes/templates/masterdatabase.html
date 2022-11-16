@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3PM Middleware</title>
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="UXhTzdtz3rsWAWhIeZcmvaDY0owcy9Tc_eCvmwwc2N8FD2qZ6h2L8E53Xjsgwmrpzrrnx1uEsbSLh8WuWXiPmg==">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback" rel="stylesheet">
+    <link th:href="@{/themes/adminlite/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/themes/adminlite/css/adminlte.min.css}" rel="stylesheet">
+    <link th:href="@{/themes/adminlite/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}" rel="stylesheet"></head>
+<!-- Toaster -->
+<link rel="stylesheet" th:href="@{/themes/jtoaster/jquery.toast.css}" />
+
+<body class="hold-transition sidebar-mini layout-fixed" data-panel-auto-height-mode="height">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <div th:insert="~{header}"></div>
+    <!-- /.navbar -->
+    <style>
+		.sidebar-dark-secondary
+		.nav-sidebar>.nav-item>
+		.nav-link.active,
+        .sidebar-light-secondary
+        .nav-sidebar>
+        .nav-item>
+        .nav-link
+        .active {
+	background-color:  #66bb6a;
+	color:  white;
+
+}
+
+[class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link {
+	color: black;
+}
+
+[class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link.active,
+[class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link.active:hover {
+	background-color: #81c784;
+	color: white;
+}
+/*div split*/
+.containers {
+  display: flex; /* or inline-flex */
+  flex-wrap: nowrap;
+  width:100%;
+  height: 100%; /* or whatever */
+}
+.item {
+  flex: 1 1;
+  margin:0 1%;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: green;
+}
+
+</style>
+    <style type="text/css">
+      #loadingmsg {
+      color: black;
+      background: #fff;
+      padding: 10px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 100;
+      margin-right: -25%;
+      margin-bottom: -25%;
+      }
+      #loadingover {
+      background: black;
+      z-index: 99;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+      filter: alpha(opacity=80);
+      -moz-opacity: 0.8;
+      -khtml-opacity: 0.8;
+      opacity: 0.8;
+    }
+</style>
+    <style>
+    #loading-div-background{
+
+      display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #f2d2d4;
+    width: 100%;
+    height: 100%;
+    }
+    #showData table{width: 100% !important;border: 1px solid blue;}
+
+
+    #loading-div{
+    width: 350px;
+    height: 200px;
+    background-color: #fff;
+    border: 5px solid #b2131b;
+    text-align: center;
+    color: #202020;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url("/css/pie/PIE.htc"); /* HANDLES IE */
+    }
+    </style>
+    <style>
+        /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+    </style>
+    <style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+/* Style the close button */
+.topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.topright:hover {color: red;}
+</style>
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-light-secondary elevation-4">
+        <!-- Brand Logo -->
+        <!-- Sidebar -->
+        <div th:insert="~{nav}"></div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
+        <!-- <div th:insert="~{navbar}"></div> -->
+        <div class="tab-content">
+            <div>
+
+                </br>
+                <div class="containers">
+                    <div class="item">
+
+                        <div class="box-body">
+                            <div class="box-body table-responsive">
+                                     <!--  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+                                    -->
+                                <font size="2" face="Courier New" >
+                                <table id="employeetable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>MFLCode</th>
+                                        <th>Facility Name</th>
+                                        <th>Database Name</th>
+                                        <th>Reuploaded</th>
+                                        <th>Status</th>
+                                        <th>Date Uploaded</th>
+                                        <th>Last Encounter Date</th>
+                                        <th>Size</th>
+                                        <th>Restore</th>
+                                        <th>Download</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ul : ${dbs}">
+                                        <td th:text="${#numbers.formatInteger(ul.mflcode,0)}"></td>
+                                        <td th:text="${ul.name}"></td>
+                                        <td th:text="${ul.dbname}"></td>
+                                        <td th:text="${ul.reuploaded}"></td>
+                                        <td th:text="${ul.status}"></td>
+                                        <td th:text="${ul.created_on}"></td>
+                                        <td th:text="${ul.created_on}"></td>
+
+                                        <td th:text="${ul.dbsize}"></td>
+                                        <td>
+                                            <a th:href="@{'/databasemanager/restore/'+${ul.dbname}}">Restore</a>
+                                        </td>
+                                        <td>
+                                             <a th:href="@{'/databasemanager/download/'+${ul.dbname}}">Download</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </font>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-loading">
+                <div>
+                    <h2 class="display-4">Dashboard is loading <i class="fa fa-sync fa-spin"></i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:insert="~{footer}"></div>
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- /wrapper -->
+<!-- jQuery -->
+<script th:src="@{/themes/adminlite/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/themes/adminlite/plugins/jquery/jquery-ui.min.js}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+<script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+<script>
+    function showLoading() {
+    document.getElementById('loadingmsg').style.display = 'block';
+    document.getElementById('loadingover').style.display = 'block';
+    }
+     function closeLoading() {
+    document.getElementById('loadingmsg').style.display = 'none';
+    document.getElementById('loadingover').style.display = 'none';
+    }
+</script>
+<script>
+    $(function() {
+    $('form').submit(function() {
+       //showLoading();
+       document.getElementById('dataset').style.display = 'none';
+       document.getElementById('report').style.display = 'none';
+       document.getElementById('period').style.display = 'none';
+       $("#loading-div-background").show();
+                var dataset = document.getElementById("dataset").value;
+                    var period = document.getElementById("period").value;
+                    var report = document.getElementById("report").value;
+                    var file =  $('#filename')[0].files[0] ;// document.getElementById("filename")[0];
+                    var filename = new FormData($("#upload")[6]);
+                    var filen = new FormData($("#upload")[5]);
+                     var getUrl = window.location;
+                     var baseurls =  getUrl.origin + '/' +getUrl.pathname.split('/')[1]+'/upload_data';
+                      console.log($('#filename')[0].files[0])
+                      var formData = new FormData();
+                      var files = $('#filename')[0].files[0];
+                      formData.append("file", files);
+                      formData.append("period", period);
+                      formData.append("dataset", dataset);
+                      formData.append("report",report);
+
+                        $.ajax({
+                                url: baseurls,
+                                type: 'POST',
+                                data: formData,
+                                enctype: 'multipart/form-data',
+                                contentType : false,
+                                cache : false,
+                                processData : false,
+                                success: function (result) {
+                                //var x = result;
+                                //alert(x);
+                                //closeLoading();
+                                   document.getElementById('dataset').style.display = 'block';
+                                   document.getElementById('report').style.display = 'block';
+                                   document.getElementById('period').style.display = 'block';
+                                $(".txtnav").hide();
+                                $("#loading-div-background").hide();
+                                 //console.log(result);
+                                   $.toast({ heading: 'Success',
+                                          text: 'Record Operation Successfully',
+                                          showHideTransition: 'slide',
+                                          icon: 'success',
+                                          position : 'top-right',
+                                          hideAfter : 7000,
+                                          stack : 5,
+                                          })
+                                        console.log(result);
+
+                                  }
+                        });
+
+        return false;
+    });
+});
+</script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/themes/adminlite/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- overlayScrollbars -->
+<script th:src="@{/themes/adminlite/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/themes/adminlite/js/adminlte.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/themes/adminlite/js/demo.js}"></script>
+
+<script th:src="@{/themes/adminlite/assets/jquery.js}"></script>
+<script th:src="@{/themes/adminlite/assets/yii.js}"></script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <title>3PM Middleware</title>
+    <meta name="author" content="Rugut Kibet Enock">
+    <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+    <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/themes/css/styles.css}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/themes/css/switchery.min.css}">
+    <script type="text/javascript" th:src="@{/themes/js/switchery.min.js}"></script>
+</head>
+
+<body>
+<div id="wrapper">
+
+    <h1>3PM Middleware Dashboard</h1>
+
+    <form class="forms" id="upload" enctype="multipart/form-data">
+
+            <div class="col-2">
+            <label>
+                Name
+                <input placeholder="What is your full name?" id="name" name="name" tabindex="1">
+            </label>
+        </div>
+        <div class="col-2">
+            <label>
+                Implementing Mechanism
+                <input placeholder="KCCB KARP (KOoyurqK0Uf) " id="company" name="company" tabindex="2">
+            </label>
+        </div>
+
+        <div class="col-3">
+            <label>
+                Dataset
+                <select tabindex="3" id="dataset">
+                    <option> -- Select ---</option>
+                    <option th:value="''" th:text="Select"></option>
+                    <option th:each="i : ${dataset}" th:value="${i.displayid}" th:text="${i.displayname}"></option>
+                </select>
+            </label>
+        </div>
+        <div class="col-3">
+                <label>
+                    Period
+                    <select id="period" tabindex="4">
+                        <option> -- Select ---</option>
+                        <option th:value="''" th:text="Select"></option>
+                        <option th:each="i : ${period}" th:value="${i.displayid}" th:text="${i.displayname}"></option>
+                    </select>
+                </label>
+         </div>
+        <div class="col-3">
+            <label>
+                Report
+                <select id="report" tabindex="5">
+
+                    <option> -- Select ---</option>
+                    <option th:value="''" th:text="Select"></option>
+                    <option th:each="i : ${dataelementgroup}" th:value="${i.displayid}" th:text="${i.displayname}"></option>
+                </select>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-2">
+            <label>
+                Download Data Template </br>
+                </br>
+                <a href="#">Download</a>
+
+                <input placeholder="." id="skills" name="skills" tabindex="6">
+            </label>
+        </div>
+        <div class="col-2">
+            <label>
+                Upload Data Template
+                <input type="file" id="filename" name="filename" accept=".xls,.xlsx" enctype="multipart/form-data" tabindex="7">
+            </label>
+        </div>
+
+    </form>
+    <div>
+        <div class="col-submit">
+            <button class="submitbtn" id="saveprogram">Submit Form</button>
+        </div>
+    </div>
+</div>
+<script th:src="@{/themes/jquery/jquery.min.js}"></script>
+</body>
+</html>

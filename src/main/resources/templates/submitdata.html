@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<form id="fileForm" action="/upload" method="POST" enctype="multipart/form-data">
+    <input id="file" type="file" name="file"/>
+    <input id="btnSubmitFile" type="button" value="upload file to /upload"/>
+</form>
+
+<div id="outputDiv"></div>
+
+<script type="text/javascript">
+
+        $(function () {
+
+            $("#btnSubmitFile").click(function () {
+                var form = new FormData(document.getElementById("fileForm"));
+                $.ajax({
+                    url: "/upload",
+                    type: "post",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $("#outputDiv").html(data);
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

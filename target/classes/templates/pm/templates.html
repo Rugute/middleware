@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Middleware | Data Templates </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/themes/pm/plugins/fontawesome-free/css/all.min.css}">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/themes/pm/dist/css/adminlte.min.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/themes/jtoaster/jquery.toast.css}" />
+    <style>
+    .infotag {
+      border-style: solid;
+      border-color: coral;
+      width:100%;
+}
+  </style>
+    <style>
+    #loading-div-background{
+
+      display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #f2d2d4;
+    width: 100%;
+    height: 100%;
+    }
+    #showData table{width: 100% !important;border: 1px solid blue;}
+
+
+    #loading-div{
+    width: 350px;
+    height: 200px;
+    background-color: #fff;
+    border: 5px solid #b2131b;
+    text-align: center;
+    color: #202020;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url("/css/pie/PIE.htc"); /* HANDLES IE */
+    }
+    </style>
+
+</head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <div th:insert="~{pm/header}"></div>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <div th:insert="~{pm/nav}"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Data Templates</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- forms -->
+                            <div class="card-body">
+
+                                <div id="loading-div-background">
+                                    <div id="loading-div" class="ui-corner-all">
+                                        <img style="height:80px;width:80px;margin:30px;" th:src="@{/themes/img/please_wait.gif}" alt="Loading.."/><br>PROCESSING. PLEASE WAIT...
+                                    </div>
+                                </div>
+                                <div class="box-body table-responsive">
+                                    <table id="employeetable" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Resource Name</th>
+                                            <th>Download</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr th:each="persons : ${docs}">
+                                            <td th:text="${persons}"></td>
+                                            <td>
+                                                <a th:href="@{'/downloads/download/'+${persons}}">Download</a>
+                                            </td>
+                                            <!-- <td th:text="${persons}"></td> -->
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <!--- end of Model -->
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <div th:insert="~{pm/footer}"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script th:src="@{/themes/pm/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/themes/pm/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE -->
+<script th:src="@{/themes/pm/dist/js/adminlte.js}"></script>
+<!-- DataTables  & Plugins -->
+<script th:src="@{/themes/pm/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/jszip/jszip.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/pdfmake.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/vfs_fonts.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+<script>
+function upload(){
+
+       document.getElementById('dataset').style.display = 'none';
+       document.getElementById('report').style.display = 'none';
+       document.getElementById('period').style.display = 'none';
+       document.getElementById('sidenav').style.display = 'none';
+       document.getElementById('navpanel').style.display = 'none';
+
+
+       $("#loading-div-background").show();
+
+       var dataset = document.getElementById("dataset").value;
+       var period = document.getElementById("period").value;
+       var report = document.getElementById("report").value;
+       var getUrl = window.location;
+       var baseurls =  getUrl.origin + '/' +getUrl.pathname.split('/')[1]+'/data/upload_data';
+       var formData = new FormData();
+       var files = $('#filename')[0].files[0];
+                formData.append("file", files);
+                formData.append("period", period);
+                formData.append("dataset", dataset);
+                formData.append("report",report);
+                         $.ajax({      url: baseurls,
+                                type: 'POST',
+                                data: formData,
+                                enctype: 'multipart/form-data',
+                                contentType : false,
+                                cache : false,
+                                processData : false,
+                                success: function (result) {
+                                   document.getElementById('dataset').style.display = 'block';
+                                   document.getElementById('report').style.display = 'block';
+                                   document.getElementById('period').style.display = 'block';
+                                   document.getElementById('sidenav').style.display = 'block';
+                                   document.getElementById('navpanel').style.display = 'block';
+                                    $(".txtnav").hide();
+                                    $("#loading-div-background").hide();
+                                if(result==1){
+                                         $.toast({ heading: 'Success',
+                                                    text: 'Record Operation Successfully',
+                                                    showHideTransition: 'slide',
+                                                    icon: 'success',
+                                                    position : 'top-right',
+                                                    hideAfter : 7000,
+                                                    stack : 5,
+                                                    })
+                                        }
+                                        else{
+                                        $.toast({ heading: 'Error Occured',
+                                                    text: result,
+                                                    showHideTransition: 'slide',
+                                                    icon: 'warning',
+                                                    position : 'top-right',
+                                                    hideAfter : 10000,
+                                                    stack : 5,
+                                                    })
+
+                                        }
+
+                                  }
+                        });
+
+
+
+}
+
+</script>
+</body>
+</html>

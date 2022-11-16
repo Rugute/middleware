@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3PM Middleware</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback" rel="stylesheet">
+  <link th:href="@{/themes/adminlite/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <link th:href="@{/themes/adminlite/css/adminlte.min.css}" rel="stylesheet">
+  <link th:href="@{/themes/adminlite/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}" rel="stylesheet"></head>
+<!-- Toaster -->
+<link rel="stylesheet" th:href="@{/themes/jtoaster/jquery.toast.css}" />
+
+<body class="hold-transition sidebar-mini layout-fixed" data-panel-auto-height-mode="height">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <div th:insert="~{header}"></div>
+  <!-- /.navbar -->
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-light-secondary elevation-4">
+    <!-- Brand Logo -->
+    <!-- Sidebar -->
+    <div th:insert="~{nav}"></div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
+    <!-- <div th:insert="~{navbar}"></div> -->
+    <div class="tab-content">
+      <div>
+        <div class="box-body">
+          <div class="box-body table-responsive">
+        <div class="containers">
+          <div class="item">
+            <table id="employeetable" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Facility Name</th>
+                <th>MFLCODE</th>
+                <th>OrgUnitUID</th>
+                <th>County</th>
+                <th>Sub County</th>
+                <th>Region</th>
+
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr th:each="ul : ${facilities}">
+                <td th:text="${ul.facilityname}"></td>
+                <td th:text="${ul.mflcode}"></td>
+                <td th:text="${ul.OrgUnitUID}"></td>
+                <td th:text="${ul.county}"></td>
+                <td th:text="${ul.subcounty}"></td>
+                <td th:text="${ul.region}"></td>
+
+               <!-- <td>
+                  <a th:href="@{'/downloads/download/'+${ul.status}}">Reset Password</a>
+                </td>-->
+                <!-- <td th:text="${persons}"></td> -->
+
+              </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-loading">
+      <div>
+        <h2 class="display-4">Dashboard is loading <i class="fa fa-sync fa-spin"></i></h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.content-wrapper -->
+<div th:insert="~{footer}"></div>
+
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- /wrapper -->
+<!-- jQuery -->
+<script th:src="@{/themes/adminlite/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/themes/adminlite/plugins/jquery/jquery-ui.min.js}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/themes/adminlite/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- overlayScrollbars -->
+<script th:src="@{/themes/adminlite/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/themes/adminlite/js/adminlte.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/themes/adminlite/js/demo.js}"></script>
+
+<script th:src="@{/themes/adminlite/assets/jquery.js}"></script>
+<script th:src="@{/themes/adminlite/assets/yii.js}"></script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Middleware | Facilities </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/themes/pm/plugins/fontawesome-free/css/all.min.css}">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/themes/pm/dist/css/adminlte.min.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/themes/jtoaster/jquery.toast.css}" />
+</head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <div th:insert="~{pm/header}"></div>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <div th:insert="~{pm/nav}"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"> <b><span th:utext="${countfacilities}"></span> </b> Facilities </h3>
+                                <h3 class="card-title"> &nbsp;  in <b> <span th:utext="${countcounties}"></span> </b> Counties </h3>
+
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <!-- Tabs --->
+                                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Facilities</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Counties</a>
+                                    </li>
+
+                                </ul>
+
+                                <div class="tab-content" id="custom-content-above-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                                      </br>
+                                        <font size="2" face="Courier New" >
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                <tr>
+                                                    <th>Facility Name</th>
+                                                    <th>MFLCODE</th>
+                                                    <th>3PM OrgUnitUID</th>
+                                                    <th>County</th>
+                                                    <th>Sub County</th>
+                                                    <th>Region</th>
+
+                                                </tr>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="ul : ${facilities}">
+                                                    <td th:text="${ul.facilityname}"></td>
+                                                    <td th:text="${#numbers.formatInteger(ul.mflcode,0)}"></td>
+                                                    <td th:text="${ul.OrgUnitUID}"></td>
+                                                    <td th:text="${ul.county}"></td>
+                                                    <td th:text="${ul.subcounty}"></td>
+                                                    <td th:text="${ul.region}"></td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </font>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+                                        </br>
+                                        <font size="2" face="Courier New" >
+                                            <table id="example3" class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                <tr>
+                                                <tr>
+                                                    <th>County Name</th>
+                                                    <th>3PM OrgUnitUID</th>
+                                                    <th>Region</th>
+                                                </tr>
+
+                                                </tr>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="ul : ${counties}">
+                                                        <td th:text="${ul.facilityname}"></td>
+                                                        <td th:text="${ul.OrgUnitUID}"></td>
+                                                        <td th:text="${ul.region}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </font>
+
+                                    </div>
+
+                                </div>
+                                <!-- End of Tabs --->
+
+
+
+
+
+                            </div>
+                            <!-- Start of Mode -->
+
+                            <!--- end of Model -->
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <div th:insert="~{pm/footer}"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script th:src="@{/themes/pm/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/themes/pm/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE -->
+<script th:src="@{/themes/pm/dist/js/adminlte.js}"></script>
+<!-- DataTables  & Plugins -->
+<script th:src="@{/themes/pm/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/jszip/jszip.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/pdfmake.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/vfs_fonts.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $("#example3").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Middleware | ETL </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/themes/pm/plugins/fontawesome-free/css/all.min.css}">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/themes/pm/dist/css/adminlte.min.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/themes/jtoaster/jquery.toast.css}" />
+</head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <div th:insert="~{pm/header}"></div>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <div th:insert="~{pm/nav}"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Central ETL</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                               <div align="center">
+                                <input type="button" value="Refresh Data" id="cmdRefresh" name="cmdRefresh" class="external-event bg-success" style="float: centre;"/>
+                                <input type="button" value="Create ETL" id="cmdRecreate" name="cmdRecreate" class="external-event bg-warning" style="float: centre;"/>
+                               </div>
+                               </br>
+                                <font size="2" face="Courier New" >
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                        <tr>
+                                            <th>Procedure</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Completion Status</th>
+                                        </tr>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="ul : ${etl}">
+                                            <td th:text="${ul.sprocedure}"></td>
+                                            <td th:text="${ul.startdate}"></td>
+                                            <td th:text="${ul.enddate}"></td>
+                                            <td>
+                                            <span th:if="${ul.status == 'Restored'}">
+                                                       <span class="external-event bg-success" th:text="${ul.status}"></span>
+                                            </span>
+                                                    <span th:unless="${ul.status == 'Restored'}">
+                                                      <span class="external-event bg-warning" th:text="${ul.status}"></span>
+                                            </span>
+
+
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </font>
+                            </div>
+                            <!-- Start of Mode -->
+                            <div class="modal fade" id="myModal" >
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Upload Database</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <form name="upload" id="upload">
+                                                <div class="containers">
+                                                    <div class="item">
+                                                        <div class="form-group">
+                                                            <label for="facility">Facility</label>
+                                                            <datalist id="suggestions">
+                                                                <option th:each="i : ${falicities}" th:value="${#numbers.formatInteger(i.mflcode,0)}" th:text="${i.facilityname}"></option>
+
+                                                            </datalist>
+                                                            <input  id="facility" name="facility"  autoComplete="on" list="suggestions" required="required" class="form-control col-md-10 col-xs-12"/>
+                                                            <!--    <select  id="datasett" name="dataset" required="required" class="form-control col-md-10 col-xs-12" >
+                                                                    <option th:value="''" th:text="Select"></option>
+                                                                    <option th:each="i : ${dataset}" th:value="${i.displayid}" th:text="${i.displayname}"></option>
+                                                                </select>-->
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="year">Year</label>
+                                                            <select  id="year" name="year" required="required" class="form-control col-md-10 col-xs-12" >
+                                                                <option th:value="''" th:text="Select"></option>
+                                                                <option th:each="i : ${years}" th:value="${i.year}" th:text="${i.year}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="form-group">
+                                                            <label for="month">Month</label>
+                                                            <select  id="month" name="month" required="required" class="form-control col-md-10 col-xs-12" >
+                                                                <option th:value="''" th:text="Select"></option>
+                                                                <option th:each="i : ${months}" th:value="${i.shortname}" th:text="${i.monthname}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="filename">Choose Database</label> </br>
+                                                            <input type="file" id="filename" name="filename" accept=".sql" enctype="multipart/form-data" required="required" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div align="center">
+
+                                                    <button class="btn-success" id="saveprogram">Submit</button>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <!-- <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                         </div> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--- end of Model -->
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <div th:insert="~{pm/footer}"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script th:src="@{/themes/pm/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/themes/pm/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE -->
+<script th:src="@{/themes/pm/dist/js/adminlte.js}"></script>
+<!-- DataTables  & Plugins -->
+<script th:src="@{/themes/pm/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/jszip/jszip.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/pdfmake.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/pdfmake/vfs_fonts.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/themes/pm/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+<script th:src="@{/themes/jtoaster/jquery.toast.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<a th:href="@{/reporting/home}" class="brand-link" xmlns:th="http://www.w3.org/1999/xhtml">
+    <img th:src="@{/themes/adminlite/img/karp.png}" alt="3PM Logo" class="brand-image img-square elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">Reporting Server</span>
+</a>
+
+<div class="sidebar" id="txtnav" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        System Admin
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a th:href="@{/system/users}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>System Users</p>
+                        </a>
+                    </li>
+                    <!--li class="nav-item">
+                        <a href="/site/community" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>3PM - COMMUNITY DATASET</p>
+                        </a-->
+
+                    </li>
+                   <!-- <li class="nav-item">
+                        <a th:href="@{/downloads/templates}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Download Template</p>
+                        </a>
+                    </li>-->
+                   <!-- <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Reporting rates</p>
+                        </a>
+                    </li>-->
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        3PM Middleware
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a th:href="@{/reporting/dataupload}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Upload data</p>
+                        </a>
+                    </li>
+                    <!--li class="nav-item">
+                        <a href="/site/community" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>3PM - COMMUNITY DATASET</p>
+                        </a-->
+
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/downloads/templates}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Download Template</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/metabase/home}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Reporting rates</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Database Manager
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a th:href="@{/databasemanager/restoredb}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Upload Databases</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/databasemanager/masterdatabases}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Master Databases</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/databasemanager/facilities}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Master Facilities</p>
+                        </a>
+                    </li>
+                    <!--<li class="nav-item">
+                        <a href="/site/otz" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>OTZ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/site/pmtct" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>PMTCT</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/site/tb" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>TB</p>
+                        </a>
+                    </li> -->
+                    <!--li class="nav-item">
+                       <a href="/site/reporting-rate" class="nav-link">
+                           <i class="far fa-circle nav-icon"></i>
+                           <p>3PM-Reporting Rates</p>
+                       </a>
+
+                   </li> -->
+               <!-- li class="nav-item">
+                       <a href="/site/community" class="nav-link">
+                           <i class="far fa-circle nav-icon"></i>
+                           <p>Community Reporting Rates</p>
+                       </a>
+                   </li-->
+
+                   <!-- <li class="nav-item">
+                        <a href="/site/targetfy21" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>IM County Targets  <br>& Achievements</p>
+                        </a>
+                    </li>-->
+
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        Predictive Analysis
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/site/hts" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Coming Soon</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
+            <!--<li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        KPIF<sub>v2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sub>&nbsp;
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/site/kpif" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Main Dashboard</p>
+                        </a>
+                        &lt;!&ndash;a href="/site/kpifr" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Reporting Rates</p>
+
+                          &lt;!&ndash;<a href="/site/kpifprint" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Printable Data</p> &ndash;&gt;
+
+
+
+                        </a>
+
+                    </li>
+
+                </ul>
+            </li>-->
+
+            <!--<li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        EFFECTS OF COVID-19
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/site/covid19" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>On HIV Services</p>
+                        </a>
+                    </li>
+                    &lt;!&ndash;li class="nav-item">
+                         <a href="/site/rates" class="nav-link">
+                           <i class="far fa-circle nav-icon"></i>
+                           <p>Reporting Rates</p>
+                       </a>
+                   </li&ndash;&gt;
+
+                </ul>
+            </li>-->
+
+            <!--<li class="nav-item">
+                <a href="/site/datim" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        DATIM
+
+                    </p>
+                </a>
+
+            </li>-->
+
+            <!--<li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        DATA CONGRUENCE
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/site/dataquality" class="nav-link" title="COMPARISON OF 3P FACILITY DATASET TO DATIM">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>3PM - DATIM</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/site/effects" class="nav-link" title="COMPARISON OF COVID-19 to FACILITY HTS-CT Dataset ">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>COVID-19 & FACILITY DS</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/site/masterlist" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p title="Facility to IM/IP Mapping per program area MasterList">MAPPING MASTERLIST</p>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>-->
+
+
+
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>
